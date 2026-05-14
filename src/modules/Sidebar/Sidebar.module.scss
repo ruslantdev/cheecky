@@ -1,0 +1,32 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  min-width: 300px;
+
+  transition:
+    width 0.25s ease,
+    min-width 0.25s ease;
+  will-change: width;
+}
+
+.sidebar__header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  height: 60px;
+  flex-shrink: 0;
+  background-color: lightblue;
+  padding: 16px;
+}
+
+.sidebar__content {
+  padding: 24px 16px;
+  overflow-y: auto;
+}
+
+.sidebar_collapsed {
+  width: 60px;
+  min-width: 60px;
+}

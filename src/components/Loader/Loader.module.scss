@@ -1,0 +1,43 @@
+.loader {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.loader__inner {
+  position: absolute;
+  z-index: 991;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #fff;
+
+  &:before {
+    content: '';
+    flex-shrink: 0;
+    display: block;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid;
+    border-right-color: transparent;
+    color: red;
+    animation: animationLoader 1s linear infinite;
+  }
+}
+
+@keyframes animationLoader {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

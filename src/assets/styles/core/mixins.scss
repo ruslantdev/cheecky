@@ -1,0 +1,171 @@
+@use 'sass:map';
+@use 'sass:list';
+
+$screen: (
+  '1920-2559': (
+    min: 1920px,
+    max: 2559px,
+  ),
+  '1600-1919': (
+    min: 1600px,
+    max: 1919px,
+  ),
+  '1440-1599': (
+    min: 1440px,
+    max: 1599px,
+  ),
+  '1280-1439': (
+    min: 1280px,
+    max: 1439px,
+  ),
+  '1250-1520': (
+    min: 1250px,
+    max: 1519px,
+  ),
+  '1000-1249': (
+    min: 1000px,
+    max: 1249px,
+  ),
+  '1024-1279': (
+    min: 1024px,
+    max: 1279px,
+  ),
+  '768-1023': (
+    min: 768px,
+    max: 1023px,
+  ),
+  '660-767': (
+    min: 660px,
+    max: 767px,
+  ),
+  '375-767': (
+    min: 375px,
+    max: 767px,
+  ),
+  '>2560': (
+    min: 2561px,
+  ),
+  '>1920': (
+    min: 1921px,
+  ),
+  '>1600': (
+    min: 1601px,
+  ),
+  '>1440': (
+    min: 1441px,
+  ),
+  '>1280': (
+    min: 1281px,
+  ),
+  '>1024': (
+    min: 1025px,
+  ),
+  '>768': (
+    min: 769px,
+  ),
+  '>375': (
+    min: 376px,
+  ),
+  '<2560': (
+    max: 2559px,
+  ),
+  '<1920': (
+    max: 1919px,
+  ),
+  '<1600': (
+    max: 1599px,
+  ),
+  '<1440': (
+    max: 1439px,
+  ),
+  '<1280': (
+    max: 1279px,
+  ),
+  '<1024': (
+    max: 1023px,
+  ),
+  '<768': (
+    max: 767px,
+  ),
+  '<640': (
+    max: 639px,
+  ),
+  '<460': (
+    max: 459px,
+  ),
+  '<375': (
+    max: 374px,
+  ),
+  '>=2560': (
+    min: 2560px,
+  ),
+  '>=1920': (
+    min: 1920px,
+  ),
+  '>=1600': (
+    min: 1600px,
+  ),
+  '>=1440': (
+    min: 1440px,
+  ),
+  '>=1280': (
+    min: 1280px,
+  ),
+  '>=1024': (
+    min: 1024px,
+  ),
+  '>=768': (
+    min: 768px,
+  ),
+  '>=375': (
+    min: 375px,
+  ),
+  '<=2560': (
+    max: 2560px,
+  ),
+  '<=1920': (
+    max: 1920px,
+  ),
+  '<=1600': (
+    max: 1600px,
+  ),
+  '<=1440': (
+    max: 1440px,
+  ),
+  '<=1280': (
+    max: 1280px,
+  ),
+  '<=1024': (
+    max: 1024px,
+  ),
+  '<=768': (
+    max: 768px,
+  ),
+  '<=375': (
+    max: 375px,
+  ),
+) !default;
+
+@mixin screen($key) {
+  @if map.has-key($screen, $key) {
+    $map: map.get($screen, $key);
+    $min: map.get($map, min);
+    $max: map.get($map, max);
+
+    @if $min and $max {
+      @media (min-width: #{$min}) and (max-width: #{$max}) {
+        @content;
+      }
+    } @else if $min {
+      @media (min-width: #{$min}) {
+        @content;
+      }
+    } @else if $max {
+      @media (max-width: #{$max}) {
+        @content;
+      }
+    }
+  } @else {
+    @warn "🔴 Breakpoint '#{$key}' not found in $screen map.";
+  }
+}
