@@ -1,5 +1,6 @@
 import {create} from 'zustand';
 import type {TLayoutContentType} from '@/types';
+import {LAYOUT_CONTENT_TYPE} from '@/constants/layout';
 
 interface TLayoutStore {
   isGlobalLoading: boolean;
@@ -19,7 +20,7 @@ interface TLayoutStore {
 const initialState = {
   isGlobalLoading: false,
   isLoading: false,
-  contentType: 'default' as TLayoutContentType,
+  contentType: LAYOUT_CONTENT_TYPE.component,
   tabTitle: undefined,
   title: undefined,
 };

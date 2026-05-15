@@ -1,0 +1,21 @@
+declare const env: {
+  VERSION?: string;
+  BRANCH?: string;
+  COMMIT?: string;
+  BUILD_DATE?: string;
+  BUILD_ENV?: string;
+  APP_ENV?: string;
+  API_URL?: string;
+  LOG_IN_URL?: string;
+  LOG_OUT_URL?: string;
+  MAX_CHUNK_RETRY_ATTEMPTS?: string;
+  CHUNK_RETRY_DELAY?: string;
+  REQUEST_CACHE_TTL?: string;
+  REQUEST_TIMEOUT?: string;
+  REQUEST_RETRY_ATTEMPTS?: string;
+  REQUEST_RETRY_DELAY?: string;
+  SENTRY_ENABLED?: string;
+  SENTRY_DSN?: string;
+  SENTRY_ENV?: string;
+  SENTRY_AUTO_SESSION_TRACKING?: string;
+};

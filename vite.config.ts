@@ -26,6 +26,9 @@
 // },
 //   });
 // };
+//
+//
+
 import logger from './data/vite/logger';
 import browserslistToEsbuild from 'browserslist-to-esbuild';
 import {getEnvs, parseBoolean} from './data/utils/env';
@@ -37,7 +40,7 @@ import {patchCssModules} from 'vite-css-modules';
 import {defineConfig} from 'vite';
 import viteMinimizeClassNames from './data/vite/plugins/vite-plugin-minimize-class-names';
 
-export default defineConfig(async ({mode, command}) => {
+export default defineConfig(async ({mode}) => {
   const {appEnv, buildEnv} = getEnvs(mode);
 
   return {
@@ -94,6 +97,7 @@ export default defineConfig(async ({mode, command}) => {
         '@types': fileURLToPath(new URL('./src/types', import.meta.url)),
         '@utils': fileURLToPath(new URL('./src/utils', import.meta.url)),
         '@api': fileURLToPath(new URL('./src/api', import.meta.url)),
+        '@i18n': fileURLToPath(new URL('./src/i18n', import.meta.url)),
       },
       extensions: ['.js', '.ts', '.tsx', '.jsx', '.json'],
     },

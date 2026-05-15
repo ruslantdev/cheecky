@@ -4,4 +4,8 @@ export const sleep = async (time = 1000): Promise<void> => {
   });
 };
 
+export const stringToNumber = (data?: string) => {
+  return Number(data) || 0;
+};
+
 export default sleep;

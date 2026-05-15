@@ -1,7 +1,7 @@
 import {APP_STATUS} from '@constants/app';
 import React, {type ReactNode} from 'react';
 import useStoreApp from '@/stores/storeApp';
-import logger from '@/utils/logger';
+import logger from '@utils/logger';
 
 const log = logger.module('ErrorBoundaryCatcher');
 
