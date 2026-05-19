@@ -1,12 +1,14 @@
-import {Suspense} from 'react';
-import {Outlet} from 'react-router-dom';
-import Loader from '@components/Loader';
 import Header from '@modules/Header';
 import Sidebar from '@modules/Sidebar';
-import css from './LayoutDefault.module.scss';
+import type {FC, ReactNode} from 'react';
 import useStoreLayoutDefault from '@/stores/storeLayoutDefault';
+import css from './LayoutDefault.module.scss';
 
-const LayoutDefault = () => {
+interface TLayoutDefaultProps {
+  children?: ReactNode;
+}
+
+const LayoutDefault: FC<TLayoutDefaultProps> = ({children}) => {
   const $layoutDefault = useStoreLayoutDefault();
 
   return (
@@ -17,13 +19,9 @@ const LayoutDefault = () => {
       />
 
       <main className={css.layoutDefault__main}>
-        <Suspense fallback={<Loader />}>
-          <Header className={css.layoutDefault__header} />
+        <Header className={css.layoutDefault__header} />
 
-          <div className={css.layoutDefault__content}>
-            <Outlet />
-          </div>
-        </Suspense>
+        <div className={css.layoutDefault__content}>{children}</div>
       </main>
     </div>
   );

@@ -1,43 +1,23 @@
 .loader {
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-
-.loader__inner {
-  position: absolute;
-  z-index: 991;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: #fff;
-
-  &:before {
-    content: '';
-    flex-shrink: 0;
-    display: block;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    border: 2px solid;
-    border-right-color: transparent;
-    color: red;
-    animation: animationLoader 1s linear infinite;
-  }
+  z-index: 2;
 }
 
-@keyframes animationLoader {
-  0% {
-    transform: rotate(0deg);
-  }
+.loader__inner {
+  color: inherit;
+  border: 2px solid;
+  border-radius: 50%;
+  border-right-color: transparent !important;
+  flex-shrink: 0;
+  animation: spin 1s linear infinite;
+}
 
-  100% {
+@keyframes spin {
+  to {
     transform: rotate(360deg);
   }
 }

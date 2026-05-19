@@ -1,5 +1,5 @@
+import {type FC, useEffect} from 'react';
 import useStoreProfile from '@/stores/storeProfile';
-import {FC, useEffect} from 'react';
 
 const Init: FC = () => {
   const {getProfile} = useStoreProfile();
@@ -8,7 +8,9 @@ const Init: FC = () => {
     (async () => {
       await getProfile();
     })();
-  }, []);
+  }, [getProfile]);
+
+  return null;
 };
 
 export default Init;

@@ -1,5 +1,6 @@
 export const LAYOUT_TYPE = {
   default: 'default',
+  clear: 'clear',
 } as const;
 
 export const LAYOUT_CONTENT_TYPE = {

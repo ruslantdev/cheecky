@@ -1,6 +1,6 @@
+import {LOCALES} from '@constants/locale';
 import {stringToNumber} from '@utils/common';
 import {envStringToBoolean} from '@utils/env';
-import {LOCALES} from '@constants/locale';
 
 const BUILD_ENV = env.BUILD_ENV ?? 'development';
 const APP_ENV = env.APP_ENV ?? 'development';

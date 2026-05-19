@@ -1,9 +1,9 @@
-import type {FC} from 'react';
 import clsx from 'clsx';
-import css from './Header.module.scss';
+import type {FC} from 'react';
 import useStoreLayoutDefault from '@/stores/storeLayoutDefault';
 import useStoreLocale from '@/stores/storeLocale';
-import {TLocale} from '@/types';
+import type {TLocale} from '@/types';
+import css from './Header.module.scss';
 
 interface THeaderProps {
   className?: string;
@@ -15,7 +15,9 @@ const Header: FC<THeaderProps> = ({className}) => {
 
   return (
     <header className={clsx(css.header, className)}>
-      <button onClick={toggleSidebar}>Click sidebar</button>
+      <button type="button" onClick={toggleSidebar}>
+        Click sidebar
+      </button>
 
       <select
         value={locale}

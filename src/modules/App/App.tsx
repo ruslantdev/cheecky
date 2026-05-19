@@ -1,18 +1,17 @@
-import {Suspense, useEffect} from 'react';
-import {RouterProvider} from 'react-router-dom';
 import Loader from '@components/Loader';
 import {APP_STATUS} from '@constants/app';
-import {router} from '@constants/router';
+import CONFIG from '@constants/config';
 import ErrorBoundary from '@modules/ErrorBoundary';
+import Init from '@modules/Init';
+import Locale from '@modules/Locale';
 import Maintenance from '@modules/Maintenance';
 import useStoreApp from '@stores/storeApp';
-import sleep from '@utils/common';
-import logger from '@utils/logger';
-import Locale from '@modules/Locale';
-import Init from '@modules/Init';
-import useStoreProfile from '@stores/storeProfile';
 import useStoreLocale from '@stores/storeLocale';
-import CONFIG from '@constants/config';
+import useStoreProfile from '@stores/storeProfile';
+import logger from '@utils/logger';
+import {useEffect} from 'react';
+import {RouterProvider} from 'react-router-dom';
+import router from '@/react-plugins/router';
 
 const App = () => {
   const log = logger.module('App');
@@ -50,11 +49,14 @@ const App = () => {
         <>
           <Init />
 
-          {appStatus === APP_STATUS.initializing && <Loader />}
+          <Loader
+            show={appStatus === APP_STATUS.initializing}
+            background="#fff"
+          />
 
-          <Suspense fallback={<Loader />}>
+          {appStatus === APP_STATUS.initialized && (
             <RouterProvider router={router} />
-          </Suspense>
+          )}
         </>
       )}
     </ErrorBoundary>
