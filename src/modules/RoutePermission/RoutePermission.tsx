@@ -1,7 +1,7 @@
 import {getRoutePathByName} from '@constants/route';
 import {useCheckPermission} from '@hooks/useCheckPermission';
 import {type ReactNode, useEffect, useMemo} from 'react';
-import {type TRouteHandle, useMatches, useNavigate} from 'react-router-dom';
+import {type RouteHandle, useMatches, useNavigate} from 'react-router-dom';
 import type {TPage} from '@/types';
 
 type RoutePermissionProps = {
@@ -13,9 +13,7 @@ const RoutePermission = ({children}: RoutePermissionProps) => {
   const navigate = useNavigate();
   const {is} = useCheckPermission();
 
-  const handle = matches[matches.length - 1]?.handle as
-    | TRouteHandle
-    | undefined;
+  const handle = matches[matches.length - 1]?.handle as RouteHandle | undefined;
 
   const needsAdmin = handle?.isAdmin === true;
 

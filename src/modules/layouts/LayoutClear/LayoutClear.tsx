@@ -1,11 +1,12 @@
-import type {FC, ReactNode} from 'react';
+import {Suspense} from 'react';
+import {Outlet} from 'react-router-dom';
 
-interface TLayoutClearProps {
-  children?: ReactNode;
-}
-
-const LayoutClear: FC<TLayoutClearProps> = ({children}) => {
-  return <div>{children}</div>;
+const LayoutClear = () => {
+  return (
+    <Suspense fallback={null}>
+      <Outlet />
+    </Suspense>
+  );
 };
 
 export default LayoutClear;

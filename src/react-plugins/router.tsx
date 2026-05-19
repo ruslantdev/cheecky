@@ -23,7 +23,6 @@ export const generateRoutes = (): RouteObject[] => {
 
     const handle = {
       layout: layout || LAYOUT_TYPE.default,
-      component,
       name,
       isAdmin,
       redirect: routeRedirect,
@@ -45,6 +44,10 @@ export const generateRoutes = (): RouteObject[] => {
       id: String(name),
       path: path === '/' ? undefined : path,
       index: path === '/',
+      lazy: () =>
+        component().then((module) => ({
+          Component: module.default,
+        })),
       handle,
     });
   });

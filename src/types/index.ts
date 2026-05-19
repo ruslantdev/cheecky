@@ -5,4 +5,5 @@ export * from './locale';
 export * from './page';
 export * from './profile';
 export * from './route';
+export * from './routeHandle';
 export * from './utils';

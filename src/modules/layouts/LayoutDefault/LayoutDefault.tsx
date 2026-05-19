@@ -1,14 +1,11 @@
 import Header from '@modules/Header';
 import Sidebar from '@modules/Sidebar';
-import type {FC, ReactNode} from 'react';
+import {Suspense} from 'react';
+import {Outlet} from 'react-router-dom';
 import useStoreLayoutDefault from '@/stores/storeLayoutDefault';
 import css from './LayoutDefault.module.scss';
 
-interface TLayoutDefaultProps {
-  children?: ReactNode;
-}
-
-const LayoutDefault: FC<TLayoutDefaultProps> = ({children}) => {
+const LayoutDefault = () => {
   const $layoutDefault = useStoreLayoutDefault();
 
   return (
@@ -21,7 +18,11 @@ const LayoutDefault: FC<TLayoutDefaultProps> = ({children}) => {
       <main className={css.layoutDefault__main}>
         <Header className={css.layoutDefault__header} />
 
-        <div className={css.layoutDefault__content}>{children}</div>
+        <div className={css.layoutDefault__content}>
+          <Suspense fallback={null}>
+            <Outlet />
+          </Suspense>
+        </div>
       </main>
     </div>
   );
