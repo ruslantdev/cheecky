@@ -14,16 +14,44 @@
   position: relative;
   width: 100%;
   height: calc(100dvh - 60px);
+  padding: 16px 16px 16px 0;
 }
 
 .layoutDefault__sidebar {
-  border-right: 1px solid lightgray;
+  width: 300px;
+  background-color: gray;
+  border-top-right-radius: 16px;
+  border-bottom-right-radius: 16px;
+  margin-left: -300px;
+  opacity: 0;
+  z-index: 3;
+  overflow: hidden;
+  transition:
+    margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s ease;
+  will-change: margin-left, opacity;
+}
+
+.layoutDefault__sidebar_open {
+  opacity: 1;
+  margin-left: 0;
 }
 
 .layoutDefault__content {
-  max-width: 1280px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 24px;
+  flex-grow: 1;
+  padding: 16px;
   overflow-y: auto;
+  background-color: #fff;
+  border-radius: 16px;
+  margin-left: 16px;
+}
+
+@include screen('<768') {
+  .layoutDefault__sidebar {
+    position: fixed;
+    top: 60px;
+    width: 100%;
+    height: calc(100dvh - 60px);
+    border-radius: 0;
+  }
 }

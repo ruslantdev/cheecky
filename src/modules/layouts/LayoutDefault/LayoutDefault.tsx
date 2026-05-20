@@ -1,46 +1,44 @@
 import Header from '@modules/Header';
 import Sidebar from '@modules/Sidebar';
-import {Suspense, useEffect} from 'react';
+import clsx from 'clsx';
+import {Suspense, useCallback, useEffect} from 'react';
 import {Outlet} from 'react-router-dom';
-import {useShallow} from 'zustand/react/shallow';
 import useStoreLayoutDefault from '@/stores/storeLayoutDefault';
 import useStoreScreen from '@/stores/storeScreen';
 import css from './LayoutDefault.module.scss';
 
 const LayoutDefault = () => {
   const $screen = useStoreScreen();
+  const isSidebarOpen = useStoreLayoutDefault((state) => state.isOpen);
+  const setSidebarOpen = useStoreLayoutDefault((state) => state.setIsOpen);
 
-  const {sidebar, setSidebar} = useStoreLayoutDefault(
-    useShallow((state) => ({
-      sidebar: state.sidebar,
-      setSidebar: state.setSidebar,
-    }))
-  );
+  const isMobile = $screen['<768'];
 
-  const isMobile = $screen['<460'];
-  const isTablet = $screen['<1024'];
+  const handleMenuItemClick = useCallback(() => {
+    if (isMobile && isSidebarOpen) {
+      setSidebarOpen(false);
+    }
+  }, [isMobile, isSidebarOpen, setSidebarOpen]);
 
   useEffect(() => {
     if (isMobile) {
-      setSidebar('hidden');
-    } else if (isTablet) {
-      setSidebar('collapsed');
+      setSidebarOpen(false);
     } else {
-      setSidebar('opened');
+      setSidebarOpen(true);
     }
-  }, [isMobile, isTablet, setSidebar]);
+  }, [isMobile, setSidebarOpen]);
 
   return (
     <div className={css.layoutDefault}>
       <Header className={css.layoutDefault__header} />
 
       <div className={css.layoutDefault__body}>
-        {sidebar === 'hidden' ? null : (
-          <Sidebar
-            className={css.layoutDefault__sidebar}
-            collapsed={sidebar === 'collapsed'}
-          />
-        )}
+        <Sidebar
+          className={clsx(
+            css.layoutDefault__sidebar,
+            isSidebarOpen && css.layoutDefault__sidebar_open
+          )}
+        />
 
         <div className={css.layoutDefault__content}>
           <Suspense fallback={null}>

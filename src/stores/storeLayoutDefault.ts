@@ -1,23 +1,15 @@
 import {create} from 'zustand';
-import {persist} from 'zustand/middleware';
-import type {TSidebarVariant} from '@/types';
 
 interface TLayoutDefaultStore {
-  sidebar: TSidebarVariant;
-  setSidebar: (variant: TSidebarVariant) => void;
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
+  toggle: () => void;
 }
 
-const useStoreLayoutDefault = create<TLayoutDefaultStore>()(
-  persist(
-    (set) => ({
-      sidebar: 'opened',
-      setSidebar: (variant) => set({sidebar: variant}),
-    }),
-    {
-      name: 'layout-default',
-      partialize: (state) => ({sidebar: state.sidebar}),
-    }
-  )
-);
+const useStoreLayoutDefault = create<TLayoutDefaultStore>()((set) => ({
+  isOpen: true,
+  setIsOpen: (isOpen) => set({isOpen}),
+  toggle: () => set((state) => ({isOpen: !state.isOpen})),
+}));
 
 export default useStoreLayoutDefault;
