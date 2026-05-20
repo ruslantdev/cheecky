@@ -8,6 +8,7 @@ import {loadWithRetry} from '@utils/chunk';
 import logger from '@utils/logger';
 import {type ComponentType, useEffect, useState} from 'react';
 import {type RouteHandle, useMatches, useNavigation} from 'react-router-dom';
+import {useShallow} from 'zustand/react/shallow';
 import type {TLayoutType} from '@/types';
 import type {TLazyComponent} from '@/types/common';
 
@@ -19,9 +20,18 @@ const layoutComponents: Record<TLayoutType, TLazyComponent> = {
 };
 
 const Layout = () => {
-  const $app = useStoreApp();
-  const $layout = useStoreLayout();
-  const $locale = useStoreLocale();
+  const setAppStatus = useStoreApp((state) => state.setStatus);
+
+  const {layoutContentType, isLayoutLoading, isLayoutGlobalLoading} =
+    useStoreLayout(
+      useShallow((state) => ({
+        layoutContentType: state.contentType,
+        isLayoutLoading: state.isLoading,
+        isLayoutGlobalLoading: state.isGlobalLoading,
+      }))
+    );
+
+  const isLocaleLoading = useStoreLocale((state) => state.isLoading);
   const navigation = useNavigation();
 
   const matches = useMatches();
@@ -45,7 +55,6 @@ const Layout = () => {
       if (!layoutComponents[layoutType]) {
         setLayoutShell(null);
         setLayoutLoading(false);
-
         return;
       }
 
@@ -57,8 +66,7 @@ const Layout = () => {
         }
       } catch (error) {
         log.error("Couldn't load Layout chunk", {error});
-
-        $app.setStatus(APP_STATUS.error);
+        setAppStatus(APP_STATUS.error);
       } finally {
         window.clearTimeout(t);
 
@@ -74,23 +82,21 @@ const Layout = () => {
       cancelled = true;
       window.clearTimeout(t);
     };
-  }, [handle?.layout, $app]);
+  }, [handle?.layout, setAppStatus]);
 
-  const showContentLoader = $layout.contentType !== LAYOUT_CONTENT_TYPE.loader;
+  const showContentLoader = layoutContentType !== LAYOUT_CONTENT_TYPE.loader;
   const isPageLoading = navigation.state === 'loading';
 
   return (
     <>
       {LayoutShell && <LayoutShell />}
 
-      <Loader
-        show={showContentLoader && ($layout.isLoading || isPageLoading)}
-      />
+      <Loader show={showContentLoader && (isLayoutLoading || isPageLoading)} />
 
-      <Loader show={$layout.contentType === LAYOUT_CONTENT_TYPE.loader} />
+      <Loader show={layoutContentType === LAYOUT_CONTENT_TYPE.loader} />
 
       <Loader
-        show={$locale.isLoading || layoutLoading || $layout.isGlobalLoading}
+        show={isLocaleLoading || layoutLoading || isLayoutGlobalLoading}
       />
     </>
   );

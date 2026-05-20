@@ -1,43 +1,12 @@
-// import {defineConfig, loadEnv, type ConfigEnv} from 'vite';
-// import react from '@vitejs/plugin-react';
-// import path from 'path';
-
-// export default ({mode}: ConfigEnv) => {
-//   const env = loadEnv(mode, process.cwd());
-
-//   return defineConfig({
-//     plugins: [react()],
-
-//     server: {
-//       host: env.VITE_HOST || 'localhost',
-//       port: Number(env.VITE_PORT) || 5173,
-//     },
-
-//     resolve: {
-// alias: {
-//   '@': path.resolve(__dirname, 'src'),
-//   '@components': path.resolve(__dirname, 'src/components'),
-//   '@modules': path.resolve(__dirname, 'src/modules'),
-//   '@types': path.resolve(__dirname, 'src/types'),
-//   '@constants': path.resolve(__dirname, 'src/constants'),
-//   '@utils': path.resolve(__dirname, 'src/utils'),
-//   '@hooks': path.resolve(__dirname, 'src/hooks'),
-// },
-// },
-//   });
-// };
-//
-//
-
-import logger from './data/vite/logger';
-import browserslistToEsbuild from 'browserslist-to-esbuild';
-import {getEnvs, parseBoolean} from './data/utils/env';
-import viteAppEnv from './data/vite/plugins/vite-plugin-app-env';
-import viteSvg from 'vite-svg-loader';
-import {ViteMinifyPlugin as viteMinifyHTML} from 'vite-plugin-minify';
 import {fileURLToPath, URL} from 'node:url';
-import {patchCssModules} from 'vite-css-modules';
+import browserslistToEsbuild from 'browserslist-to-esbuild';
 import {defineConfig} from 'vite';
+import {patchCssModules} from 'vite-css-modules';
+import {ViteMinifyPlugin as viteMinifyHTML} from 'vite-plugin-minify';
+import svgr from 'vite-plugin-svgr';
+import {getEnvs, parseBoolean} from './data/utils/env';
+import logger from './data/vite/logger';
+import viteAppEnv from './data/vite/plugins/vite-plugin-app-env';
 import viteMinimizeClassNames from './data/vite/plugins/vite-plugin-minimize-class-names';
 
 export default defineConfig(async ({mode}) => {
@@ -53,25 +22,30 @@ export default defineConfig(async ({mode}) => {
     },
     plugins: [
       viteAppEnv({appEnv}),
-      viteSvg({
-        svgoConfig: {
-          plugins: [
-            {
-              name: 'preset-default',
-              params: {
-                overrides: {
-                  cleanupIds: false,
-                  removeHiddenElems: false,
+      svgr({
+        include: '**/*.svg',
+        svgrOptions: {
+          exportType: 'named',
+          namedExport: 'ReactComponent',
+          svgoConfig: {
+            plugins: [
+              {
+                name: 'preset-default',
+                params: {
+                  overrides: {
+                    cleanupIds: false,
+                    removeHiddenElems: false,
+                  },
                 },
               },
-            },
-            {
-              name: 'prefixIds',
-              params: {
-                prefix: false,
+              {
+                name: 'prefixIds',
+                params: {
+                  prefix: false,
+                },
               },
-            },
-          ],
+            ],
+          },
         },
       }),
       viteMinifyHTML(),

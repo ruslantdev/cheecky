@@ -1,12 +1,13 @@
-import {ReactNode, FC, useEffect} from 'react';
 import logger from '@utils/logger';
-import useStoreLocale from '@/stores/storeLocale';
-import useStoreProfile from '@/stores/storeProfile';
+import {type FC, type ReactNode, useEffect} from 'react';
+import {useShallow} from 'zustand/react/shallow';
 import CONFIG from '@/constants/config';
 import LOCAL_STORAGE_KEY from '@/constants/localStorage';
 import i18n from '@/react-plugins/locale';
-import {loadWithRetry} from '@/utils/chunk';
+import useStoreLocale from '@/stores/storeLocale';
+import useStoreProfile from '@/stores/storeProfile';
 import type {TLocale} from '@/types';
+import {loadWithRetry} from '@/utils/chunk';
 
 const log = logger.module('Locale');
 
@@ -30,15 +31,20 @@ interface Props {
 }
 
 export const Locale: FC<Props> = ({children}) => {
-  const {locale, initLocale, syncLoading, setLoading} = useStoreLocale();
+  const {locale, initLocale, setLocaleLoading} = useStoreLocale(
+    useShallow((state) => ({
+      locale: state.locale,
+      initLocale: state.initLocale,
+      setLocaleLoading: state.setLoading,
+    }))
+  );
 
-  const profileLocale = useStoreProfile((state) => state.profile?.locale);
   const isProfileLoading = useStoreProfile((state) => state.isLoading);
+  const profileLocale = useStoreProfile((state) => state.profile?.locale);
 
   useEffect(() => {
-    syncLoading();
     initLocale();
-  }, [initLocale, syncLoading, isProfileLoading, profileLocale]);
+  }, [initLocale, isProfileLoading, profileLocale]);
 
   useEffect(() => {
     const handleStorage = (event: StorageEvent) => {
@@ -70,11 +76,11 @@ export const Locale: FC<Props> = ({children}) => {
     const applyLocale = async () => {
       if (locale === CONFIG.defaultLocale) {
         await i18n.changeLanguage(CONFIG.defaultLocale);
-        setLoading(false);
+        setLocaleLoading(false);
         return;
       }
 
-      const timer = window.setTimeout(() => setLoading(true), 50);
+      const timer = window.setTimeout(() => setLocaleLoading(true), 50);
 
       try {
         const messages = await loadLocaleMessages(locale);
@@ -103,17 +109,17 @@ export const Locale: FC<Props> = ({children}) => {
       } finally {
         window.clearTimeout(timer);
         if (isActive) {
-          setLoading(false);
+          setLocaleLoading(false);
         }
       }
     };
 
-    applyLocale();
+    void applyLocale();
 
     return () => {
       isActive = false;
     };
-  }, [locale, setLoading]);
+  }, [locale, setLocaleLoading]);
 
   return <>{children}</>;
 };

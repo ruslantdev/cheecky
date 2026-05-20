@@ -1,3 +1,4 @@
+import {ReactComponent as IconDashboard} from '@icons/dashboard.svg';
 import clsx from 'clsx';
 import type {FC} from 'react';
 import css from './Sidebar.module.scss';
@@ -16,7 +17,10 @@ const Sidebar: FC<TSidebarProps> = ({className, collapsed}) => {
         className
       )}
     >
-      <div className={css.sidebar__header}>Header</div>
+      <div className={css.sidebar__header}>
+        Header
+        <IconDashboard style={{width: '16px'}} />
+      </div>
       <div className={css.sidebar__content}>Content</div>
     </div>
   );

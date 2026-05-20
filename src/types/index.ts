@@ -6,4 +6,6 @@ export * from './page';
 export * from './profile';
 export * from './route';
 export * from './routeHandle';
+export * from './screen';
+export * from './sidebar';
 export * from './utils';

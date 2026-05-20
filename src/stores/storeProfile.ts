@@ -1,6 +1,6 @@
-import {TLocale, TProfile} from '@/types';
-import sleep from '@/utils/common';
 import {create} from 'zustand';
+import type {TLocale, TProfile} from '@/types';
+import sleep from '@/utils/common';
 
 interface TProfileStore {
   isLoading: boolean;
@@ -18,7 +18,7 @@ const initialValues = {
 const mockProfile = {
   name: 'John Doe',
   email: 'johndoe@mail.com',
-  locale: 'en' as TLocale,
+  locale: 'ru' as TLocale,
 };
 
 const useStoreProfile = create<TProfileStore>((set) => ({

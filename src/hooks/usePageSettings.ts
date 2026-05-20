@@ -1,5 +1,6 @@
 import useStoreLayout from '@stores/storeLayout';
 import {useLayoutEffect} from 'react';
+import {useShallow} from 'zustand/react/shallow';
 
 export function usePageSettings({
   tabTitle,
@@ -8,8 +9,12 @@ export function usePageSettings({
   tabTitle?: string;
   title?: string;
 }) {
-  const setTabTitle = useStoreLayout((state) => state.setTabTitle);
-  const setTitle = useStoreLayout((state) => state.setTitle);
+  const {setTitle, setTabTitle} = useStoreLayout(
+    useShallow((state) => ({
+      setTitle: state.setTitle,
+      setTabTitle: state.setTabTitle,
+    }))
+  );
 
   useLayoutEffect(() => {
     setTabTitle(tabTitle);
