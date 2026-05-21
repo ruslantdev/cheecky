@@ -1,4 +1,5 @@
 import {fileURLToPath, URL} from 'node:url';
+import react from '@vitejs/plugin-react';
 import browserslistToEsbuild from 'browserslist-to-esbuild';
 import {defineConfig} from 'vite';
 import {patchCssModules} from 'vite-css-modules';
@@ -21,6 +22,7 @@ export default defineConfig(async ({mode}) => {
       modulePreload: true,
     },
     plugins: [
+      react(),
       viteAppEnv({appEnv}),
       svgr({
         include: '**/*.svg',
@@ -58,6 +60,9 @@ export default defineConfig(async ({mode}) => {
         '@assets': fileURLToPath(new URL('./src/assets', import.meta.url)),
         '@icons': fileURLToPath(
           new URL('./src/assets/medias/icons', import.meta.url)
+        ),
+        '@fonts': fileURLToPath(
+          new URL('./src/assets/styles/fonts', import.meta.url)
         ),
         '@components': fileURLToPath(
           new URL('./src/components', import.meta.url)

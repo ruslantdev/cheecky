@@ -44,6 +44,19 @@
   background-color: #fff;
   border-radius: 16px;
   margin-left: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.layoutDefaultTitle {
+  margin-bottom: 16px;
+}
+
+.layoutDefault__main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 100%;
 }
 
 @include screen('<768') {

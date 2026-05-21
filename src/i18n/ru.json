@@ -1,4 +1,14 @@
 {
   "Hello": "Привет",
-  "Home": "Дом"
+  "Home": "Дом",
+  "Subscriptions": "Подписки",
+  "This is your dashboard": "Это ваша главная страница",
+  "Greetings": "Приветствую",
+  "Go to home page": "Перейти на домашнюю страницу",
+  "Oops, something went wrong": "Ой, что-то пошло не так!",
+  "Sorry, the page you are looking for does not exist": "Извините, страница, которую вы ищете, не существует",
+  "Page not found": "Страница не найдена",
+  "Refresh page": "Обновить страницу",
+  "Currently under maintenance": "Проводится техническое обслуживание",
+  "We regret the inconvenience caused": "Мы сожалеем о доставленных неудобствах"
 }

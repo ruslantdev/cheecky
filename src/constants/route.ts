@@ -5,12 +5,12 @@ import type {TRoute} from '@/types/route';
 export const ROUTES: Record<TPage, TRoute> = {
   home: {
     path: '/',
-    component: () => loadWithRetry(() => import('@modules/pages/Home')),
+    component: () => loadWithRetry(() => import('@modules/pages/PageHome')),
   },
   subscriptions: {
     path: '/subscriptions',
     component: () =>
-      loadWithRetry(() => import('@modules/pages/Subscriptions')),
+      loadWithRetry(() => import('@modules/pages/PageSubscriptions')),
   },
 
   test: {
@@ -21,7 +21,7 @@ export const ROUTES: Record<TPage, TRoute> = {
 
   notFound: {
     path: '*',
-    component: () => loadWithRetry(() => import('@modules/NotFound')),
+    component: () => loadWithRetry(() => import('@modules/pages/PageNotFound')),
   },
 } as const;
 

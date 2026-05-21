@@ -1,9 +1,14 @@
 import ROUTES from '@constants/route';
+import {usePageSettings} from '@hooks/usePageSettings';
 import {useTranslation} from 'react-i18next';
 import {Link} from 'react-router-dom';
 
-const Subscriptions = () => {
+export const PageSubscriptions = () => {
   const {t} = useTranslation();
+
+  usePageSettings({
+    title: t('Subscriptions'),
+  });
 
   return (
     <div>
@@ -12,5 +17,3 @@ const Subscriptions = () => {
     </div>
   );
 };
-
-export default Subscriptions;

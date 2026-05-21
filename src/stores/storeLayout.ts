@@ -1,6 +1,6 @@
 import {create} from 'zustand';
-import type {TLayoutContentType} from '@/types';
 import {LAYOUT_CONTENT_TYPE} from '@/constants/layout';
+import type {TLayoutContentType} from '@/types';
 
 interface TLayoutStore {
   isGlobalLoading: boolean;
@@ -8,12 +8,17 @@ interface TLayoutStore {
   contentType: TLayoutContentType;
   tabTitle?: string;
   title?: string;
+  subTitle?: string;
+  desc?: string;
 
   setGlobalLoading: (value: boolean) => void;
   setLoading: (value: boolean) => void;
   setContentType: (type: TLayoutContentType) => void;
   setTitle: (title?: string) => void;
   setTabTitle: (title?: string) => void;
+  setSubTitle: (title?: string) => void;
+  setDesc: (desc?: string) => void;
+
   reset: () => void;
 }
 
@@ -23,6 +28,8 @@ const initialState = {
   contentType: LAYOUT_CONTENT_TYPE.component,
   tabTitle: undefined,
   title: undefined,
+  subTitle: undefined,
+  desc: undefined,
 };
 
 const useStoreLayout = create<TLayoutStore>((set) => ({
@@ -37,6 +44,10 @@ const useStoreLayout = create<TLayoutStore>((set) => ({
   setTitle: (title) => set({title}),
 
   setTabTitle: (tabTitle) => set({tabTitle}),
+
+  setSubTitle: (subTitle) => set({subTitle}),
+
+  setDesc: (desc) => set({desc}),
 
   reset: () => set(initialState),
 }));

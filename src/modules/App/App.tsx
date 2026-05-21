@@ -5,6 +5,7 @@ import ErrorBoundary from '@modules/ErrorBoundary';
 import Init from '@modules/Init';
 import Locale from '@modules/Locale';
 import Maintenance from '@modules/Maintenance';
+import PageMeta from '@modules/PageMeta';
 import Screen from '@modules/Screen';
 import useStoreApp from '@stores/storeApp';
 import useStoreLocale from '@stores/storeLocale';
@@ -50,6 +51,7 @@ const App = () => {
   return (
     <ErrorBoundary>
       <Locale />
+      <PageMeta />
       <Screen />
 
       {appStatus === APP_STATUS.error ? (

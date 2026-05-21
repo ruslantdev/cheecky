@@ -5,13 +5,19 @@ import {useShallow} from 'zustand/react/shallow';
 export function usePageSettings({
   tabTitle,
   title,
+  subTitle,
+  desc,
 }: {
   tabTitle?: string;
   title?: string;
+  subTitle?: string;
+  desc?: string;
 }) {
-  const {setTitle, setTabTitle} = useStoreLayout(
+  const {setTitle, setTabTitle, setSubTitle, setDesc} = useStoreLayout(
     useShallow((state) => ({
       setTitle: state.setTitle,
+      setSubTitle: state.setSubTitle,
+      setDesc: state.setDesc,
       setTabTitle: state.setTabTitle,
     }))
   );
@@ -19,5 +25,16 @@ export function usePageSettings({
   useLayoutEffect(() => {
     setTabTitle(tabTitle);
     setTitle(title);
-  }, [setTabTitle, setTitle, tabTitle, title]);
+    setSubTitle(subTitle);
+    setDesc(desc);
+  }, [
+    setTabTitle,
+    setTitle,
+    setSubTitle,
+    setDesc,
+    tabTitle,
+    title,
+    subTitle,
+    desc,
+  ]);
 }

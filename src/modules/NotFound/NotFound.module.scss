@@ -1,0 +1,29 @@
+.notFound {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  min-height: 100%;
+  padding: 32px 16px;
+}
+
+.notFound__logo {
+  margin-bottom: 16px;
+  font-size: 64px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.notFound__title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.notFound__desc {
+  font-size: 16px;
+  margin-bottom: 60px;
+}

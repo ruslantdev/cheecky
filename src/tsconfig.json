@@ -23,6 +23,7 @@
       "@/*": ["./*"],
       "@assets/*": ["./assets/*"],
       "@icons/*": ["./assets/medias/icons/*"],
+      "@fonts/*": ["./assets/medias/fonts/*"],
       "@components/*": ["./components/*"],
       "@constants/*": ["./constants/*"],
       "@hooks/*": ["./hooks/*"],
